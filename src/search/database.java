@@ -8,8 +8,8 @@ import java.util.TreeMap;
 
 public abstract class database {
 
-	public TreeMap<String,Integer> fileIdList = new TreeMap<String,Integer>(); 
-	public TreeMap<Integer,String> fileIdListInverse = new TreeMap<Integer,String>(); 
+	public TreeMap<String, Integer> fileIdList = new TreeMap<String, Integer>();
+	public TreeMap<Integer, String> fileIdListInverse = new TreeMap<Integer, String>();
 	Collection<?> index;
 	
 	public final int pushfile(String f)
@@ -46,6 +46,7 @@ public abstract class database {
 		{
 			return "";
 		}
+
 	}
 	public abstract void push(String UnnamedParameter, String UnnamedParameter2);
 	public abstract void push(String UnnamedParameter, int UnnamedParameter2);

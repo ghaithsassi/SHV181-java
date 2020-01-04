@@ -1,5 +1,4 @@
 package search;
-import java.io.*;
 
 // class word is OK 
 
