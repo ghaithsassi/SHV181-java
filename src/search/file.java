@@ -15,14 +15,12 @@ public abstract class file {
 	{
 		setFilename(filename);
 	}
-	public abstract void close();
 	public String getFileName()
 	{
 		return fileName;
 	}
-	public abstract void open();
-
-	public abstract ArrayList<String> getContents(String filename);
+	
+	public abstract ArrayList<String> getContents(String filename) throws Exception;
 
 }
 

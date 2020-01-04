@@ -1,54 +1,33 @@
 package search;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.StringTokenizer;
 
-/* class text is not OK */
+/* class text is OK */
 
 public class text extends file {
 	public text(String s)
 	{
 		super(s);
 	}
+	 public ArrayList<String> getContents(String filename) throws Exception 
+		{
+		 ArrayList<String> list = new ArrayList<String>();
+		 String data = ""; 
+		 data = new String(Files.readAllBytes(Paths.get(filename)));
+		 StringTokenizer multiTokenizer = new StringTokenizer(data, " ://.-%+()[]$<>*'!?\\#;~,€{}") ;
+		 while (multiTokenizer.hasMoreTokens())
+		 {
+		        list.add(multiTokenizer.nextToken());
+		 }
+		 return list ;
+		 
+		}
 
-	public void close() {
-		
-	}
-	public void open() {
-		
-	}
 
-	public ArrayList<String> getContents(String filename) throws IOException 
-	{
-		
-		BufferedReader bufReader = new BufferedReader(new FileReader(filename));
-	    ArrayList<String> listOfLines = new ArrayList<>();
 
-	    String line = bufReader.readLine();
-	    while (line != null) {
-	      listOfLines.add(line);
-	      line = bufReader.readLine();
-	    }
-
-	    bufReader.close();
-	    
-	  
-		
-		return listOfLines ;
-		
-	}
 
 
 
