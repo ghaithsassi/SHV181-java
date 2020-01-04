@@ -1,5 +1,7 @@
 package search;
 
+//class Pair is OK
+
 public class Pair<L,R> {
     private L l;
     private R r;

@@ -2,8 +2,8 @@ package search;
 
 import java.util.ArrayList;
 
-/* class file is OK */
-//import java.util.ArrayList;
+//class file is OK 
+
 
 public abstract class file {
 	protected String fileName;

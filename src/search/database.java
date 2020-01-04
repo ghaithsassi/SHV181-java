@@ -1,10 +1,10 @@
 package search;
-
-
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeMap;
+
+//class database is NOT OK 
 
 public abstract class database {
 
@@ -14,7 +14,7 @@ public abstract class database {
 	
 	public final int pushfile(String f)
 	{
-		int fileNbrs = (int)(this.fileIdList).size();
+		int fileNbrs = this.fileIdList.size();
 		fileIdList.put(f, fileNbrs);
 		fileIdListInverse.put(fileNbrs, f);
 		return fileNbrs;

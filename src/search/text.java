@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-/* class text is OK */
+//class text is OK 
 
 public class text extends file {
 	public text(String s)
