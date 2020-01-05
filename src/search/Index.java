@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-public abstract class Index<Public> {
-    protected Container index;
-    protected Container subContainer;
-    private TreeMap<String, Integer> fileIdList = new TreeMap<String, Integer>();
-    private TreeMap<Integer, String> fileIdListInverse = new TreeMap<Integer, String>();
+public class Index{
+    protected static Container index;
+    protected static Container subContainer;
+    private static TreeMap<String, Integer> fileIdList = new TreeMap<String, Integer>();
+    private static TreeMap<Integer, String> fileIdListInverse = new TreeMap<Integer, String>();
 
-    public final int pushfile(String f){
-        int fileNbs = (int)(this.fileIdList).size();
+    public static int pushfile(String f){
+        int fileNbs = (int)(Index.fileIdList).size();
         fileIdList.put(f, fileNbs);
         fileIdListInverse.put(fileNbs, f);
         return fileNbs;
     }
-    public final int getfileId(String s){
+    public static int getfileId(String s){
         if (fileIdList.containsKey(s))
         {
             return fileIdList.get(s);
@@ -42,7 +42,7 @@ public abstract class Index<Public> {
         }
 
     }
-    public void push(String w, int fileId,wordAttributes att){
+    public static void push(String w, int fileId,wordAttributes att){
         if(index.contains(w)){
             //overwrite if file existed
             ((Container) index.get(w)).insert(fileId,subContainer);
@@ -59,6 +59,9 @@ public abstract class Index<Public> {
         if(fileId == -1)fileId = pushfile(fileName);
         push(w,fileId,att);
     }
+    
+    
+    
     public  ArrayList<Pair<String,wordAttributes>> searchWord(String searchWord){
         ArrayList<Pair<String,wordAttributes>> response = new ArrayList<>();
         if(index.contains(searchWord)){
@@ -141,6 +144,6 @@ public abstract class Index<Public> {
     public void load(){
 
     }
-    public abstract void print();
+    
 
 }

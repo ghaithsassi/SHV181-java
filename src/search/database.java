@@ -1,18 +1,24 @@
 package search;
-import java.awt.List;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.TreeMap;
 
 //class database is NOT OK 
 
 public abstract class database {
-
-	public TreeMap<String, Integer> fileIdList = new TreeMap<String, Integer>();
-	public TreeMap<Integer, String> fileIdListInverse = new TreeMap<Integer, String>();
-	Collection<?> index;
+	public TreeMap<String, Integer> fileIdList ;
+	public TreeMap<Integer, String> fileIdListInverse ;
+	public database(){
+		TreeMap<String, Integer> a = new TreeMap<String, Integer>();
+		TreeMap<Integer, String> b = new TreeMap<Integer, String>();
+		this.fileIdList=a;
+		this.fileIdListInverse=b;
+	}
 	
-	public final int pushfile(String f)
+
+	public int pushfile(String f)
 	{
 		int fileNbrs = this.fileIdList.size();
 		fileIdList.put(f, fileNbrs);
@@ -20,9 +26,9 @@ public abstract class database {
 		return fileNbrs;
 	}
 	
-	public final int getfileId(String s)
+	public int getfileId(String s)
 	{
-	
+		
 		
 		if (fileIdList.containsKey(s))
 		{
@@ -34,13 +40,13 @@ public abstract class database {
 		}
 	}
 	
-	public final String getfileNameFromID(Integer s)
+	public String getfileNameFromID(Integer s)
 	{
-		String it = fileIdListInverse.get(s);
+	
 		
-		if (it != fileIdListInverse.get(fileIdListInverse.lastKey()))
+		if (fileIdListInverse.containsKey(s))
 		{
-			return (fileIdListInverse.get(fileIdListInverse.lastKey()));
+			return fileIdListInverse.get(s);
 		}
 		else
 		{
@@ -48,14 +54,12 @@ public abstract class database {
 		}
 
 	}
-	public abstract void push(String UnnamedParameter, String UnnamedParameter2);
-	public abstract void push(String UnnamedParameter, int UnnamedParameter2);
-	public abstract void push(String UnnamedParameter, String UnnamedParameter2, wordAttributes UnnamedParameter3);
-
-	public abstract ArrayList<Pair<String,wordAttributes>> searchWord(String UnnamedParameter);
 	
-	public abstract void push(String w, int fileId, wordAttributes att);
-	public abstract void save();
+	public abstract void push(String w, String fileName, wordAttributes att);
+	public abstract void push(String w, Integer fileId, wordAttributes att);
+	public abstract ArrayList<Pair<String,wordAttributes>> searchWord(String s);
+	
+	public abstract void save() throws IOException;
 	public abstract void load() ;
 	public abstract void print();
 	

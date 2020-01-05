@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -14,38 +15,28 @@ import java.util.stream.Stream;
 //Class engine is OK, but we must code database and ranking before
 
 public class engine {
+
+	protected static mapDatabase myindex = new mapDatabase();
 	
-	private static database myindex;
+
 	
-	private rankingAlgorithm myRanker;
+	//private rankingAlgorithm myRanker;
 	
 	public engine()
 	{
-		myindex = new containerDataStructure<TreeMap<String,TreeMap<Integer,wordAttributes>>,TreeMap<Integer,wordAttributes>>();
-		myRanker = new aLitleBitSmarterAlgorithm();
+		//myRanker = new aLitleBitSmarterAlgorithm();
 	}
 	public engine(database db)
 	{
-		myindex = db;
-		myRanker = new notVerySmartRankingAlgorithm();
+		myindex = (mapDatabase) db;
+		//myRanker = new notVerySmartRankingAlgorithm();
 	}
-	public engine(rankingAlgorithm rA)
-	{
-		myindex = new containerDataStructure<TreeMap<String,ArrayList<tangible.Pair<Integer,wordAttributes>>>,ArrayList<tangible.Pair<Integer,wordAttributes>>>();
-		myRanker = rA;
-	}
-	public engine(database db, rankingAlgorithm rA)
-	{
-		myindex = db;
-		myRanker = rA;
-	}
-	public engine(rankingAlgorithm rA, database db)
-	{
-		myindex = db;
-		myRanker = rA;
-	}
+
 	//end of constructors 
-	
+	public int id(String s) {
+		int n = myindex.getfileId(s);
+		return n ;
+	}
 		public static ArrayList<Pair<String,wordAttributes>> analyze(file myfile) throws Exception
 		{
 				
@@ -79,15 +70,16 @@ public class engine {
 				return ans ;
 		}
 		
+
 	public static void indexFile(file fileToBeIndexed) throws Exception
 	{
-			ArrayList<Pair<String,wordAttributes>> stat = engine.analyze(fileToBeIndexed);
+			ArrayList<Pair<String,wordAttributes>> stat = new ArrayList<Pair<String,wordAttributes>>();
+			stat = engine.analyze(fileToBeIndexed);
 			String name = fileToBeIndexed.getFileName();
-
+			
 			int fileId = myindex.getfileId(name);
 			if (fileId != -1)
 			{
-				// update instead of push
 				return;
 			}
 			else
@@ -128,13 +120,32 @@ public class engine {
 	return l ;
 	}
 	
+	/*public void searchnew(String s) 
+	{	
+		String w = word.pipeline(s);
+		ArrayList<Pair<Integer,wordAttributes>> ls= new ArrayList<Pair<Integer,wordAttributes>> (myindex.searchWord(w));
+		for(int j =0;j<ls.size();j++)
+		{	String ch = new String();
+				ch =    myindex.getfileNameFromID(ls.get(j).getL());
+	
+			 System.out.println(ch);
+		}
+		}*/
+	
+	
+	
+	
+	
 	//search for a phrase
-	public final void search(String s) 
+	public void search(String phrase) 
 	{	
 	
-		TreeMap<String,ArrayList<Pair<String,wordAttributes>>> searchResault = new TreeMap<String,ArrayList<Pair<String,wordAttributes>>>(); 
+		TreeMap<String,ArrayList<Pair<String,wordAttributes>>> searchResault
+		= new TreeMap<String,ArrayList<Pair<String,wordAttributes>>>(); 
+		
+		
 		ArrayList<String> listOfWords = new ArrayList<String>();
-		 StringTokenizer multiTokenizer = new StringTokenizer(s, " ://.-%+()[]$<>*'!?\\#;~,€{}") ;
+		StringTokenizer multiTokenizer = new StringTokenizer(phrase, " ://.-%+()[]$<>*'!?\\#;~,€{}") ;
 		 while (multiTokenizer.hasMoreTokens())
 		 {	
 			 	String words = new String(multiTokenizer.nextToken());
@@ -154,18 +165,26 @@ public class engine {
 		
 		
 		System.out.println("------result------");
-		System.out.println("----search for---- : "+s);
-		ArrayList<String> result = new ArrayList<String>();
-		result = myRanker.search(s,searchResault);
+		System.out.println("----search for---- : "+phrase);
+		//ArrayList<String> result = new ArrayList<String>();
+		//result = myRanker.search(s,searchResault);
+	
+
+		   for (Map.Entry<String,ArrayList<Pair<String,wordAttributes>>> entry : searchResault.entrySet()) {
+		        String k = entry.getKey();
+		        ArrayList<Pair<String,wordAttributes>> v = entry.getValue();
+		  	  
+				  for(int i=0; i<v.size();i++) {
+					  System.out.print (k + " => ");
+					  System.out.println(v.get(i).getL());
+					}
+		   }
 		
-		for(int i=0; i<result.size();i++) {
-			System.out.println(result.get(i));
-		}
 		
 	}
 
 	
-	public final void saveIndex()
+	public final void saveIndex() throws IOException
 	{
 		myindex.save();
 	}
