@@ -1,5 +1,7 @@
 package search;
 
+import com.sun.jdi.Value;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -22,10 +24,13 @@ public class mapContainer extends Container {
     public String toString(){
         return myContainer.toString();
     }
-    public boolean find(Object Value){
-        return myContainer.containsValue(Value);
-
+    public boolean find(Object value){
+        return myContainer.containsValue(value);
     }
+    public boolean contains(Object key) {
+        return myContainer.containsKey(key);
+    }
+
     public int size(){
         return myContainer.size();
     }

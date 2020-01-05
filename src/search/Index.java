@@ -43,7 +43,7 @@ public abstract class Index<Public> {
 
     }
     public void push(String w, int fileId,wordAttributes att){
-        if(index.find(w)){
+        if(index.contains(w)){
             //overwrite if file existed
             ((Container) index.get(w)).insert(fileId,subContainer);
         }
@@ -61,7 +61,7 @@ public abstract class Index<Public> {
     }
     public  ArrayList<Pair<String,wordAttributes>> searchWord(String searchWord){
         ArrayList<Pair<String,wordAttributes>> response = new ArrayList<>();
-        if(index.find(searchWord)){
+        if(index.contains(searchWord)){
             Container filesContainWord = ((Container)index.get(searchWord));
             for(Object i:filesContainWord.KeySet()){
                 int fileId = ((Integer) i);
@@ -74,9 +74,9 @@ public abstract class Index<Public> {
     public void push(String w, int fileId){
         w = word.pipeline(w);
         if(word.isOK(w))return;
-        if(index.find(w)){
+        if(index.contains(w)){
             Container subC = ((Container) index.get(w));
-            if(subC.find(fileId)){
+            if(subC.contains(fileId)){
                 ((wordAttributes) subC.get(fileId)).add();
             }else {
                 wordAttributes att = new wordAttributes();

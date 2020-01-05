@@ -5,6 +5,7 @@ import java.util.Set;
 
 public abstract class Container{
     public abstract boolean find(Object value);
+    public abstract boolean contains(Object key);
     public abstract Object get(Object Key);
     public abstract void insert(Object Key,Object Value);
     public void insert(Object Value){}
