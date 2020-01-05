@@ -61,7 +61,7 @@ public abstract class database {
 	
 	public abstract void save() throws IOException;
 	public abstract void load() ;
-	public abstract void print();
+
 	
 }
 

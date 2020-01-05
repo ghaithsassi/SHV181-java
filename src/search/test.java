@@ -31,7 +31,7 @@ public class test {
 	       String path = new String("C:/Users/Ahmed Yassine/Desktop/corpus/test500");
 	       switch(i) {
 	       case 1:
-	    	  System.out.print("Enter phrase");
+	    	  System.out.print("Enter phrase  ");
 	    	  Scanner scanner = new Scanner(System. in);
 	          String inputString = scanner. nextLine();
 	    	  search.indexPath(path);
@@ -41,7 +41,7 @@ public class test {
 	    	   search.indexPath(path);
 	    	   break;
 	       case 3:
-	    	   System.out.print("Enter path of a file");
+	    	   System.out.print("Enter path of a file  ");
 	    	   Scanner scan = new Scanner(System. in);
 	           String input = scan. nextLine();
 	           text ff = new text(input);
