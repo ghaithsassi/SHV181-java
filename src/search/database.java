@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import java.util.TreeMap;
 
-//class database is NOT OK 
+
 
 public abstract class database {
 	public TreeMap<String, Integer> fileIdList ;

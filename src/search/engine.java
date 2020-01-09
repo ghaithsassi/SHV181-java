@@ -12,27 +12,29 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-//Class engine is OK, but we must code database and ranking before
+
 
 public class engine {
 
-	protected static mapDatabase myindex = new mapDatabase();
+	protected Index myindex = new MapIndex();
 	
-
 	
+	
+	//protected static mapDatabase myindex = new mapDatabase();
 	//private rankingAlgorithm myRanker;
 	
 	public engine()
 	{
 		//myRanker = new aLitleBitSmarterAlgorithm();
 	}
-	public engine(database db)
+/*	public engine(database db)
 	{
 		myindex = (mapDatabase) db;
 		//myRanker = new notVerySmartRankingAlgorithm();
 	}
-
-	//end of constructors 
+*/
+	//end of constructors
+	
 	public int id(String s) {
 		int n = myindex.getfileId(s);
 		return n ;
@@ -71,7 +73,7 @@ public class engine {
 		}
 		
 
-	public static void indexFile(file fileToBeIndexed) throws Exception
+	public void indexFile(file fileToBeIndexed) throws Exception
 	{
 			ArrayList<Pair<String,wordAttributes>> stat = new ArrayList<Pair<String,wordAttributes>>();
 			stat = engine.analyze(fileToBeIndexed);
@@ -93,7 +95,7 @@ public class engine {
 			}
 	}
 	
-	public static void indexPath(String path) throws Exception 
+	public void indexPath(String path) throws Exception 
 	{
 		try (Stream<Path> walk = Files.walk(Paths.get(path)))
 		{
@@ -103,7 +105,7 @@ public class engine {
 		for(int i=0; i<result.size();i++) {
 			text txt= new text(result.get(i));
 			txt.setFilename(result.get(i));
-			engine.indexFile(txt);
+			this.indexFile(txt);
 			}
 		} 
 	
@@ -113,7 +115,7 @@ public class engine {
 	
 	}
 	
-	public static ArrayList<Pair<String,wordAttributes>> findWordInIndex(String s)
+	public ArrayList<Pair<String,wordAttributes>> findWordInIndex(String s)
 	{
 	String w = word.pipeline(s);
 	ArrayList<Pair<String,wordAttributes>> l = new ArrayList<Pair<String,wordAttributes>> (myindex.searchWord(w));
@@ -159,7 +161,7 @@ public class engine {
 		{	String w = new String();
 			w=listOfWords.get(i);
 			ArrayList<Pair<String,wordAttributes>> vec = new ArrayList<Pair<String,wordAttributes>>();
-			vec= engine.findWordInIndex(w);
+			vec= this.findWordInIndex(w);
 			searchResault.put(w, vec);
 		}
 		

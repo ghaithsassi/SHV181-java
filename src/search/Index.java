@@ -1,5 +1,4 @@
-package search;
-import com.sun.tools.javac.util.Pair;
+package search ;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,19 +7,18 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Index{
-    protected static Container index;
-    protected static Container subContainer;
-    private static TreeMap<String, Integer> fileIdList = new TreeMap<String, Integer>();
-    private static TreeMap<Integer, String> fileIdListInverse = new TreeMap<Integer, String>();
-
-    public static int pushfile(String f){
-        int fileNbs = (int)(Index.fileIdList).size();
+public abstract class Index{
+    protected Container index;
+    protected Container subContainer;
+    private TreeMap<String, Integer> fileIdList = new TreeMap<String, Integer>();
+    private TreeMap<Integer, String> fileIdListInverse = new TreeMap<Integer, String>();
+    public int pushfile(String f){
+        int fileNbs = (int)(this.fileIdList).size();
         fileIdList.put(f, fileNbs);
         fileIdListInverse.put(fileNbs, f);
         return fileNbs;
     }
-    public static int getfileId(String s){
+    public int getfileId(String s){
         if (fileIdList.containsKey(s))
         {
             return fileIdList.get(s);
@@ -32,17 +30,18 @@ public class Index{
 
     }
     public final String getfileNameFromID(Integer fileId){
-        if (fileIdListInverse.containsKey(fileId))
-        {
-            return fileIdListInverse.get(fileId);
-        }
-        else
-        {
-            return "";
-        }
+
+		if (fileIdListInverse.containsKey(fileId))
+		{
+			return fileIdListInverse.get(fileId);
+		}
+		else
+		{
+			return "";
+		}
 
     }
-    public static void push(String w, int fileId,wordAttributes att){
+    public void push(String w, int fileId,wordAttributes att){
         if(index.contains(w)){
             //overwrite if file existed
             ((Container) index.get(w)).insert(fileId,subContainer);
@@ -62,18 +61,52 @@ public class Index{
     
     
     
-    public  ArrayList<Pair<String,wordAttributes>> searchWord(String searchWord){
-        ArrayList<Pair<String,wordAttributes>> response = new ArrayList<>();
-        if(index.contains(searchWord)){
-            Container filesContainWord = ((Container)index.get(searchWord));
+    public  ArrayList<Pair<String,wordAttributes>> searchWord(String w){
+        ArrayList<Pair<String,wordAttributes>> response = new  ArrayList<Pair<String,wordAttributes>>();
+        if(index.contains(w)){
+            Container filesContainWord = ((Container)index.get(w));
+            System.out.println(filesContainWord.KeySet());
+            System.out.println(filesContainWord.get(0).toString());
             for(Object i:filesContainWord.KeySet()){
                 int fileId = ((Integer) i);
                 String s = getfileNameFromID(fileId);
-                response.add(new Pair<String, wordAttributes> (s, ((wordAttributes) filesContainWord.get(i)) )  );
+                wordAttributes ttt = new wordAttributes();
+                ttt = (wordAttributes)filesContainWord.get(i);
+                Pair<String, wordAttributes> pair = new Pair<String,wordAttributes>(s,ttt);
+                //Pair<String, wordAttributes> pair = new Pair<String,wordAttributes>(s,((wordAttributes) filesContainWord.get(i)));
+                
+               response.add(pair);
             }
         }
         return response;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void push(String w, int fileId){
         w = word.pipeline(w);
         if(word.isOK(w))return;

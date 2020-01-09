@@ -1,6 +1,5 @@
 package search;
 
-import com.sun.jdi.Value;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -8,12 +7,12 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class mapContainer extends Container {
-    private Map  myContainer;
+    private Map<Object, Object>  myContainer;
     mapContainer(){
-        myContainer = new TreeMap();
+        myContainer = new TreeMap<Object, Object>();
     }
     mapContainer(mapContainer other){
-        myContainer = new TreeMap();
+        myContainer = new TreeMap<Object, Object>();
     }
     public Object get(Object key){
         return myContainer.get(key);
@@ -34,10 +33,10 @@ public class mapContainer extends Container {
     public int size(){
         return myContainer.size();
     }
-    public Iterator iterator(){
+    public Iterator<?> iterator(){
         return myContainer.entrySet().iterator();
     }
-    public Set KeySet(){
+    public Set<Object> KeySet(){
         return myContainer.keySet();
     }
 }

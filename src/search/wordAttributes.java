@@ -17,5 +17,9 @@ public class wordAttributes {
 	{
 		this.occurence = o;
 	}
+	public String ToString() {
+		Integer o  = (Integer) occurence;
+		return o.toString();
+	}
 
 }
