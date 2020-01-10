@@ -28,17 +28,22 @@ public class test {
 	       i = s.nextInt(); 
 	       
 	       
-	       String path = new String("C:/Users/Ahmed Yassine/Desktop/corpus/test500");
+	       String path = new String("C:/Users/Ahmed Yassine/Desktop/corpus/test10000");
 	       switch(i) {
 	       case 1:
 	    	  System.out.print("Enter phrase  ");
 	    	  Scanner scanner = new Scanner(System. in);
 	          String inputString = scanner. nextLine();
 	    	  search.indexPath(path);
+	    	  System.out.println("Searching...");
 	 	      search.search(inputString);
 	 	      break;
 	       case 2:
+	    	   System.out.println("Indexing...");
 	    	   search.indexPath(path);
+	    	   System.out.println("----------------All files in index are indexed----------------------");
+	    	   search.saveIndex();
+	    	   
 	    	   break;
 	       case 3:
 	    	   System.out.print("Enter path of a file  ");
@@ -46,13 +51,20 @@ public class test {
 	           String input = scan. nextLine();
 	           text ff = new text(input);
 	           ff.fileName=input;
+	           System.out.println("Indexing...");
 	    	   search.indexFile(ff);
+	    	   System.out.println("----------------File is indexed----------------------");
 	    	   break;
 	       case 4:
+	    	  System.out.println("Indexing...");
 	    	  search.indexPath(path);
+	    	  System.out.println("----------------All files in index are indexed----------------------");
+	    	  search.saveIndex();
+	    	  
 	 	      break;
 	       case 6:
 	    	  search.saveIndex();
+	    	  System.out.println("Index in saved");
 	 	      break;
 	       default:
 	    	   break;

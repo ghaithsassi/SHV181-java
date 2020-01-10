@@ -16,11 +16,12 @@ import java.util.stream.Stream;
 
 public class engine {
 
-	protected Index myindex = new MapIndex();
+	//protected Index myindex = new MapIndex();
 	
 	
-	
+	protected static MapIndex myindex = new MapIndex();
 	//protected static mapDatabase myindex = new mapDatabase();
+	
 	//private rankingAlgorithm myRanker;
 	
 	public engine()
@@ -96,7 +97,7 @@ public class engine {
 	}
 	
 	public void indexPath(String path) throws Exception 
-	{
+	{	
 		try (Stream<Path> walk = Files.walk(Paths.get(path)))
 		{
 		ArrayList<String> result = (ArrayList<String>) walk.map(x -> x.toString())
@@ -112,6 +113,7 @@ public class engine {
 		catch (IOException e) {
 			e.printStackTrace();	
 		}
+	
 	
 	}
 	
